@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -40,11 +41,15 @@ public class LaunchHomeStep {
 		
 	}
 	
-	@And("verify the text subscriptions and onetime payment")
-	public void verifyText() {
+	@And("verify the text {string}")
+	public void verifyText(String string) {
 		String text = driver.findElement(By.cssSelector("strong[class='pull-left']")).getText();
-		System.out.println(text);
-		text.split("text");
+//		System.out.println(text);
+		String firstString= text.split("Monthly")[1];
+		String finalText = firstString.split("both")[0].trim();
+		System.out.println("final text is : "+finalText);
+		Assert.assertEquals(finalText,string);
 	}
+	
 	
 }
