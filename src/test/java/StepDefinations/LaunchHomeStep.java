@@ -11,6 +11,7 @@ import org.testng.Assert;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class LaunchHomeStep {
 
@@ -37,8 +38,6 @@ public class LaunchHomeStep {
 		if(driver.getPageSource().contains("PHPTRAVELS")) {
 			System.out.println("its verify that home screen contain title : "+title);
 		}
-		
-		
 	}
 	
 	@And("verify the text {string}")
@@ -49,6 +48,25 @@ public class LaunchHomeStep {
 		String finalText = firstString.split("both")[0].trim();
 		System.out.println("final text is : "+finalText);
 		Assert.assertEquals(finalText,string);
+	}
+	
+	@When("click on Company dropdown and click on blog")
+	public void clickCompanyDrpdwn() {
+		driver.findElement(By.cssSelector(".currentLanguage")).click();
+		driver.findElement(By.xpath("//div[@class='dropdown-content langList']//a[text()='Blog']")).click();
+	}
+	
+	@Then("verify blog page")
+	public void verifyBlog() {
+		String blog = driver.findElement(By.xpath("//*[text()='PHPTRAVELS Blog']")).getText();
+		Assert.assertEquals("PHPTRAVELS Blog", blog);
+		driver.navigate().to("https://phptravels.com/demo/");
+	}
+	
+	@And("close the window")
+	public void closeWindow() {
+		driver.close();
+		driver.quit();
 	}
 	
 	
